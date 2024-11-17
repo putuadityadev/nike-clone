@@ -1,12 +1,10 @@
 {
-  "homepage": "https://putuadityadev.github.io/nike-clone/",
   "name": "shoes-landing-page-tailwind",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://putuadityadev.github.io/nike-clone/",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",

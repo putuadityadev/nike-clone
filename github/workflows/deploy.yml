@@ -12,21 +12,23 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3      # Update ke v3
 
       - name: Setup Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3    # Update ke v3
         with:
-          node-version: 16
+          node-version: 18             # Update ke Node 18
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: npm ci                    # Gunakan npm ci untuk instalasi yang lebih konsisten
 
       - name: Build project
         run: npm run build
+        env:                          # Tambahkan environment variable jika diperlukan
+          BASE_URL: /nike-clone/
 
       - name: Upload production-ready build files
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3  # Update ke v3
         with:
           name: production-files
           path: ./dist
@@ -35,14 +37,20 @@ jobs:
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    permissions:                      # Tambahkan permissions
+      pages: write
+      id-token: write
+      contents: write
 
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3  # Update ke v3
         with:
           name: production-files
           path: ./dist
+
+      - name: Create .nojekyll file    # Tambahkan langkah ini
+        run: touch ./dist/.nojekyll
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
